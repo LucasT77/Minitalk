@@ -79,6 +79,8 @@ RETURN VALUE
        this case, pause() returns -1, and errno is set to EINTR.
 */
 
+
+
 int usleep(useconds_t usec);
 /*
 DESCRIPTION
@@ -91,6 +93,16 @@ RETURN VALUE
        cate the cause of the error.
 */
 
+sleep NUMBER[SUFFIX];
+/*
+Pause for NUMBER seconds.  SUFFIX may be 's' for seconds (the default),
+       'm' for minutes, 'h' for hours or 'd' for days.  Unlike most  implemen‐
+       tations  that require NUMBER be an integer, here NUMBER may be an arbi‐
+       trary floating point number.  Given two or more  arguments,  pause  for
+       the amount of time specified by the sum of their values.
+
+
+*/
 
 /*
 #include<stdio.h>

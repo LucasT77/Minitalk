@@ -6,14 +6,14 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 14:29:22 by luaraujo          #+#    #+#             */
-/*   Updated: 2022/12/30 16:31:44 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/02 18:10:34 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include <signal.h>
 
-send_signals(int pid, unsigned char *str)
+void	send_signals(int pid, unsigned char *str)
 {
 	int	i;
 	int	shift;
@@ -28,6 +28,7 @@ send_signals(int pid, unsigned char *str)
 				kill(pid, SIGUSR1); // SIGUSR1 = 1
 			else
 				kill(pid, SIGUSR2); // SIGUSR2 = 0
+			usleep(100);
 			shift++;
 		}
 		shift = 0;
@@ -37,15 +38,17 @@ send_signals(int pid, unsigned char *str)
 
 int	main(int argc, char **argv)
 {
-	int					pid;
-	char				*str;
-	struct sigaction	act;
+	int							pid;
+	unsigned char				*str;
+	//struct sigaction			act;
 	
 	if (argc != 3)
-		ft_putstr_fd("Invalid number of arguments", 1);
-	else
 	{
-		send_signals(argv[1], argv[2]);
+		ft_putstr_fd("Invalid number of arguments", 1);
+		return(0);
 	}
-	
+	pid = ft_atoi(argv[1]);
+	str = (unsigned char*)argv[2];
+	send_signals(pid, str);
+	return (0);
 }
