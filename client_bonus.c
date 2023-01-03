@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/30 14:29:22 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/03 18:13:22 by luaraujo         ###   ########.fr       */
+/*   Created: 2023/01/02 18:27:59 by luaraujo          #+#    #+#             */
+/*   Updated: 2023/01/03 17:45:29 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,20 @@ void	send_signals(int pid, unsigned char *str)
 	}
 }
 
+void	handler(int signum, siginfo_t *info, void *ucontext)
+{
+	(void)signum;
+	(void)info;
+	(void)ucontext;
+	write (1, "Input received.\n", 16);
+	exit(0);
+}
+
 int	main(int argc, char **argv)
 {
 	int							pid;
 	unsigned char				*str;
+	struct sigaction			act;
 
 	if (argc != 3)
 	{
@@ -51,5 +61,8 @@ int	main(int argc, char **argv)
 	pid = ft_atoi(argv[1]);
 	str = (unsigned char *)argv[2];
 	send_signals(pid, str);
+	act.sa_sigaction = &handler;
+	sigaction(SIGUSR1, &act, NULL);
+	sleep(2);
 	return (0);
 }
