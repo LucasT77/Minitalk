@@ -6,7 +6,7 @@
 #    By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/02 15:22:54 by luaraujo          #+#    #+#              #
-#    Updated: 2023/01/03 18:17:24 by luaraujo         ###   ########.fr        #
+#    Updated: 2023/01/07 19:52:09 by luaraujo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,21 +38,27 @@ $(SERVER):		$(SERVER_OBJ) $(LIBFT)
 						$(CC) $(CFLAGS) $(SERVER_OBJ) $(LIBFT) -o server
 $(CLIENT):		$(CLIENT_OBJ) $(LIBFT)
 						$(CC) $(CFLAGS) $(CLIENT_OBJ) $(LIBFT) -o client
+						echo "Mandatory done"
 
 bonus:			all		$(SERVER_BONUS) $(CLIENT_BONUS)
 $(SERVER_BONUS):		$(SERVER_BONUS_OBJ) $(LIBFT)
 						$(CC) $(CFLAGS) $(SERVER_BONUS_OBJ) $(LIBFT) -o server_bonus
 $(CLIENT_BONUS):		$(CLIENT_BONUS_OBJ) $(LIBFT)
 						$(CC) $(CFLAGS) $(CLIENT_BONUS_OBJ) $(LIBFT) -o client_bonus
+						echo "Mandatory and Bonus done"
 
 clean:
 						$(MAKE) clean -C libft
 						$(RM) $(SERVER_OBJ) $(CLIENT_OBJ)
 						$(RM) $(SERVER_BONUS_OBJ) $(CLIENT_BONUS_OBJ)
+						echo "Cleaned"
 
 fclean:			clean
 						$(MAKE) fclean -C libft
 						$(RM) $(SERVER) $(CLIENT)
 						$(RM) $(SERVER_BONUS) $(CLIENT_BONUS)
+						echo "Fully cleaned"
 
 re:				fclean all
+
+.SILENT:
